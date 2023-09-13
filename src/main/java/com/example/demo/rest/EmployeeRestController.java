@@ -3,10 +3,7 @@ package com.example.demo.rest;
 import com.example.demo.entity.Employee;
 import com.example.demo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,6 +31,16 @@ public class EmployeeRestController {
             throw new RuntimeException("Employee id not found ...");
 
         return employee;
+    }
+
+    @PostMapping("/employees")
+    public Employee addEmployee(@RequestBody Employee employee){
+
+        employee.setId(0);
+
+        Employee dbEmployee = employeeService.save(employee);
+
+        return dbEmployee;
     }
 
 }
